@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for="topic in topicOption">
+            <input type="radio" :value="topic.data" v-model="picked" >
+            <label>{{topic.data}}</label>
+        </div>
+        <span  @click="getType">Picked: {{ picked }}</span>
+    </div>
+    <script>
+    let topicOption = [];
+
+    topicOption = [{
+        data: "A"
+    }, {
+        data: "B"
+    }, {
+        data: "C"
+    }, {
+        data: "D"
+    }];
+
+    new Vue({
+        el: "#app",
+        data: {
+            picked: []
+        },
+        methods: {
+            getType() {
+                console.log('1111111', typeof picked)
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

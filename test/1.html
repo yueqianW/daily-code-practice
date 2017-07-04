@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" value="Jack" v-model="checkedNames">
+        <label>Jack</label>
+        <input type="checkbox" value="John" v-model="checkedNames">
+        <label>John</label>
+        <input type="checkbox" value="Mike" v-model="checkedNames">
+        <label>Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+    <script>
+    new Vue({
+        el: "#app",
+        data: {
+            checkedNames: []
+        }
+    })
+
+
+
+
+    this.obj.isRead = true;
+    this.obj.isWrite = false;
+    this.obj.isexpire = 1;
+    this.obj.nType = 0;
+    //                this.obj.nType        = 3;
+    this.obj.resultAnswer = "B";
+    // this.obj.resultAnswer = "";
+    this.obj.resultStu = "本题未答";
+    this.obj.resultTea = "";
+    this.obj.strtitleshow = "A|B|C|D";
+    //                this.obj.strtitleshow = "";
+    this.obj.stuPoint = 50;
+    this.obj.topicOption = [{
+        data: "A"
+    }, {
+        data: "B"
+    }, {
+        data: "C"
+    }, {
+        data: "D"
+    }];
+    //                this.obj.topicOption  = [];
+
+    this.list[0] = this.obj;
+    console.log('222222', this.list, this.list[0])
+    </script>
+</body>
+
+</html>
