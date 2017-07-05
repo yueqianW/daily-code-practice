@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    console.log('---', this === window);
+
+    var foo = 'bar';
+    console.log('---', foo);
+    console.log('---', this.foo);
+    console.log('---', window.foo);
+
+    function test() {
+        foo = 'test';
+    }
+
+    console.log('===', this.foo);
+    test();
+    console.log('===', this.foo);
+    </script>
+</body>
+
+</html>

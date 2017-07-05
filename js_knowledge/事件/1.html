@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../../jquery-3.1.1.min.js"></script>
+    <style>
+    li {
+        list-style: none;
+    }
+    
+    img {
+        /*pointer-events: none;*/
+        opacity: 0.8
+    }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><img src="../../images/1.png"></li>
+        <li><img src="../../images/2.png"></li>
+        <li><img src="../../images/3.png"></li>
+        <li><img src="../../images/4.png"></li>
+        <li><img src="../../images/5.png"></li>
+    </ul>
+    <script>
+    $('ul li').on('click', function(e) {
+        // $(this).css('pointer-events', 'none')
+        // var str = $(e.currentTarget).text();
+        // alert(str)
+
+        // $(this).nextAll().find('img').hide()
+        // $(this).nextAll().find('img').attr('display', 'none')
+        $(this).nextAll().find('img').attr('opacity', '0.3')
+
+
+
+
+    })
+    </script>
+</body>
+
+</html>

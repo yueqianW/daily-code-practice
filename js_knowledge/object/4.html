@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    var promise = new Promise(function(resolve, reject) {
+        if (Math.random() > 0.5) {
+            console.log('success');
+            resolve();
+        } else {
+            console.log('fail');
+            reject();
+        }
+    });
+    promise.then(function() {
+        console.log('resolve');
+    }, function() {
+        console.log('reject');
+    })
+
+    var preLoadImg = function(path) {
+        return new Prommise(function(resolve, reject) {
+            var image = new Image();
+            image.onload = resolve;
+            image.onerr = reject;
+            image.src = path
+        })
+    }
+    </script>
+</body>
+
+</html>

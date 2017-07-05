@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    var obj = {
+        name: "你好",
+        age: 18,
+        speak: function() {
+            alert('hello')
+        }
+    }
+
+    console.log(obj);
+
+    obj.sex = "男";
+    obj.test = function() {
+        console.log('---------------');
+    }
+
+    for (var i in obj) {
+        console.log('123', i + " " + obj[i]);
+    }
+    </script>
+</body>
+
+</html>

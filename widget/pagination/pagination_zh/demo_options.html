@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/pagination.css" />
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/yPagination.js"></script>
+    <script>
+    $(function() {
+                //待显示项目总长度
+                var num_entries = $("#hiddenresult .show").length;
+                $("#pag_show").yPagination(num_entries, {
+                    callback: pageselectCallback
+                });
+                //分页显示
+                function pageselectCallback(page_index, jq) {
+
+                });
+    </script>
+</head>
+
+<body>
+    <div id="Searchresult">替换内容</div>
+    <div id="pag_show" class="pag_style"></div>
+</body>
+
+</html>

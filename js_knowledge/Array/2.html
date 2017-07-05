@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="pre();save()">上一步</button>
+    <button onclick="next()">下一步</button>
+    <script>
+    var test = [1, 2, 3, 4, 5, 6, 7, 8];
+
+
+
+    function pre() {
+        // var minus = [];
+        var minus = test.pop();
+
+        var news = [];
+        news.push(minus);
+        console.log('pop 以后:', test);
+        console.log('new 数组:', news);
+
+        return minus;
+    }
+
+    function save() {
+        var save = [];
+        save.push(minus);
+
+        console.log('save 数组', save);
+
+    }
+
+    function next() {
+
+    }
+    </script>
+</body>
+
+</html>

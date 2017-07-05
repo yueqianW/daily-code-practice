@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    function test(strContent, strKeys) {
+        var arrMatch,
+            tblRoot = treeSearch.makeTree(strKeys),
+            t = new Date();
+
+
+        arrMatch = treeSearch.search(strContent, tblRoot);
+
+        console.log("time is: " + (new Date() - t) + "mm");
+
+        console.log(arrMatch);
+    }
+    var s = (function() {
+        var Things = [' ', '\n', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        var s = "";
+        for (var i = 1000000; i >= 0; i--) {
+            s += Things[parseInt(Math.random() * Things.length) % Things.length]
+        };
+        return s;
+    })()
+    test(s, ["abc", "efge", "fun", "tree"]);
+    </script>
+</body>
+
+</html>

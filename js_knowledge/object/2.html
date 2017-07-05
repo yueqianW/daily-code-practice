@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    function Create(name, age, job) {
+        // var o = new Object();
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.sayName = function() {
+                alert(this.name);
+            }
+            // return o;
+    }
+
+    Create.prototype.name = "test";
+
+    var p1 = new Create('hello', 18, 'engineer');
+    console.log('---------------', p1.name);
+    </script>
+</body>
+
+</html>

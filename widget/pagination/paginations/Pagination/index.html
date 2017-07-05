@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="jquery-1.6.2.min.js"></script>
+    <script src="jquery.pagination.js"></script>
+</head>
+
+<body>
+    <div id="page">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>0</li>
+        </ul>
+    </div>
+    <script>
+    var items_per_page = 20;
+    var page_index = 0;
+
+    function getDataList(index) {
+        var pageIndex = index;
+        $.ajax({
+            type: "POST",
+            url: "/information/import/get_articles",
+            data: "uid={$account_id}&token={$account_token}&page_index=" + pageIndex + '&items_per_page=' + items_per_page,
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded",
+            success: function(msg) {
+                $(".article_box_table").remove();
+                var html = '';
+                $.each(msg.result, function(i, da) {
+                    html += '<ul class="article_box_table"><li class="check"><input type="checkbox" class="article_sort normal_checkbox" value="' + da.id + '" /></li><li class="title"><label for="cate_0" class="pick" >' + da.title + '</label></li><li class="date">' + for_php_date_to_str(da.posttime) + '</li></ul>';
+
+                });
+                $(".article_box_top").after(html);
+            }
+        });
+    }
+
+    function pageselectCallback(page_index, jq) {
+        getDataList(page_index);
+    }
+
+    getDataList(page_index);
+
+    $("#page").pagination("{$count}", {
+        'items_per_page': items_per_page,
+        'num_display_entries': 10,
+        'num_edge_entries': 1,
+        'prev_text': "上一页",
+        'next_text': "下一页",
+        'callback': pageselectCallback,
+        'current_page': page_index,
+    });
+    </script>
+</body>
+
+</html>

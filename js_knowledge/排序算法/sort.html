@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var count = 10;
+        var origin = new Array;
+        for (var i = 0; i < count; i++) {
+            origin[i] = i + 1;
+        }
+        origin.sort(function() {
+            return 0.5 - Math.random();
+        })
+
+        var d1 = new Date().getTime();
+        
+        for (var i = 0; i < count; i++) {
+            document.write(origin[i] + " , ");
+        }
+        
+        var d2 = new Date().getTime();
+        document.write('<br/>运算耗时' + (d2 - d1));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<template>
+    <div id="topic-list">
+        <div class="topic-item" :class="{editing:item.isEdit}" v-for="(item,index) in list"
+             :data-index="index" :data-id="item.keyname">
+            <div class="topic-head clearfix">
+                <div class="part" style="width: 210px;">
+                    <div class="font txt_title">第{{index + 1}}题 题型：</div>
+                    <!--题型显示、编辑-->
+                    <div class="type-num">
+                        <div class="num" v-if="item.ntype===0">单选题</div>
+                        <div class="num" v-else-if="item.ntype===1">多选题</div>
+                        <div class="num" v-else-if="item.ntype===2">判断题</div>
+                        <div class="num" v-else-if="item.ntype===3">主观题</div>
+                        <div class="num" v-else>单选题</div>
+
+                        <select class="edit topic-type" v-model="item.ntype" @change="onSelectType(item)">
+                            <option value="0" :class="item.ntype===0?selected:''">单选题</option>
+                            <option value="1" :class="item.ntype===1?selected:''">多选题</option>
+                            <option value="2" :class="item.ntype===2?selected:''">判断题</option>
+                            <option value="3" :class="item.ntype===3?selected:''">主观题</option>
+                        </select>
+                    </div>
+                </div>
+                <!--难度星级-->
+                <div class="part" style="width: 190px;">
+                    <div class="font">难度：</div>
+                    <StarView :isEdit="item.isEdit" :starTotalNum="5" v-model="item.ntitlestars"
+                              :isHover="true"></StarView>
+                </div>
+                <!--选项设置-->
+                <div class="part">
+                    <div class="options-font">选项：</div>
+                    <div class="options">
+                        <div class="options-look">{{item.strtitleshow}}</div>
+                        <input type="text" class="form-control edit answer-count mtp_5" placeholder="请输入选项"
+                               v-show="item.ntype!==3" v-model="item.strtitleshow">
+                    </div>
+                </div>
+                <!--答案显示-->
+                <div class="part">
+                    <div class="answers-font">答案：</div>
+                    <div class="topic-answers">
+                        <div class="answers-look">{{item.strtitleresult}}</div>
+                        <input type="text" class="form-control edit answers mtp_5" placeholder="请输入答案"
+                               v-show="item.ntype!==3" v-model="item.strtitleresult">
+                    </div>
+                </div>
+
+                <!--编辑按钮-->
+                <div class="part topic-btn" style="width: 360px;">
+                    <div class="editor btn-edit" @click="onEdit(item)">
+                        <img src="images/tea_course_edit_27.png">
+                        <span>编辑</span>
+                    </div>
+                    <div class="del btn-edit" @click="onDel(index)" :data-id="item.keyname">
+                        <img src="images/tea_course_edit_28.png">
+                        <span>删除</span>
+                    </div>
+                    <div class="saver edit btn-edit" @click="onSave(item)">
+                        <img src="images/tea_course_edit_22.png">
+                        <span>保存</span>
+                    </div>
+                    <div class="btnUp btn-edit" @click="onBtnUp(index)" v-if="isHome">
+                        <img src="images/tea_course_edit_20.png">
+                        <span>上移</span>
+                    </div>
+                    <div class="btnDown btn-edit" @click="onBtnDown(index)" v-if="isHome">
+                        <img src="images/tea_course_edit_21.png">
+                        <span>下移</span>
+                    </div>
+                </div>
+            </div>
+            <!--题目内容显示-->
+            <HtmlView class="topic_preview que_text" :class="'loadQue_'+index" :data-index="index"
+                      :id="'topic_preview_pour_'+index" :htmlUrl="item.content_path">
+            </HtmlView>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {View, Dialog, Toast, HtmlUtil, ObjectUtil, Constant} from "ebookcore";
+    import HtmlView from "../../component/htmlView.vue";
+    import StarView from "../../component/StarView.vue";
+
+    export default{
+        props: {
+            list: Array,
+            isHome: Boolean
+        },
+        data(){
+            return {}
+        },
+        components: {
+            'HtmlView': HtmlView,
+            'StarView': StarView
+        },
+        methods: {
+            /**
+             * 编辑模式切换
+             */
+            hasEdit(){
+                for (let item of this.list) {
+                    if (item.isEdit === true)
+                        return true;
+                }
+                return false;
+            },
+
+            /**
+             * 题型显示切换（单选，多选，判断，主观）
+             */
+            onSelectType(item){
+                item.ntype = parseInt(item.ntype);
+
+                item.strtitleshow   = this.getTitleShow(item);
+                item.strtitleresult = this.getTitleResult(item);
+            },
+
+            /**
+             * 选项设置
+             */
+            getTitleShow(item){
+                let value = item.strtitleshow || '';
+                switch (item.ntype) {
+                    case 0:
+                    case 2:
+                        value = value.replace(/\&/g, '|');
+                        break;
+                    case 1:
+                        value = value.replace(/\|/g, '&');
+                        break;
+
+                    case 3:
+                        value = '';
+                        break;
+                    default:
+                        break;
+                }
+                return value;
+            },
+
+            /**
+             * 答案显示设置
+             */
+            getTitleResult(item){
+                let value = item.strtitleresult || '';
+                switch (item.ntype) {
+                    case 0:
+                    case 2:
+                        value = value.replace(/\&/g, '');
+                        break;
+                    case 1:
+                        value = value.replace(/\|/g, '');
+                        break;
+                    case 3:
+                        value = '';
+                        break;
+                    default:
+                        break;
+                }
+//                value = value.replace(/\|/g, '');
+//                item.strtitleresult = value;
+                return value
+            },
+
+            /**
+             * 编辑一个题目
+             */
+            onEdit(item) {
+                item.isEdit = true;
+            },
+
+            /**
+             * 删除一个题目
+             */
+            onDel(index) {
+                this.list.splice(index, 1);
+            },
+
+            /**
+             *  上移题目
+             */
+            onBtnUp(index){
+                if (index !== 0)
+                    this.swapArr(this.list, index, index - 1);
+//                console.log()
+            },
+
+            /**
+             *  下移题目
+             */
+            onBtnDown(index){
+                if (index < this.list.length - 1)
+                    this.swapArr(this.list, index, index + 1);
+            },
+
+            /**
+             *  交换数组元素
+             */
+            swapArr(arr, index1, index2) {
+                arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+                return arr;
+            },
+
+            /**
+             *  保存题目
+             */
+            onSave(item) {
+                item.isEdit         = false;
+                item.strtitleresult = item.strtitleresult.toUpperCase();
+
+                if (item.ntype === Constant.TOPIC_TYPE_3) {
+                    item.strtitleshow   = '';
+                    item.strtitleresult = '';
+                }
+            },
+        }
+    }
+</script>
