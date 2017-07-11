@@ -11,14 +11,18 @@
 <body>
     <script>
         // 基本类型 boolean string number undefined null
+        // 栈内存，按值访问
+
         // 引用类型 array date regExp object
+        // 堆内存，保存在内存中的对象，指针，按引用访问
 
         // 1.动态属性
         // 2.复制变量值
-        // 3.函数传递参数
+        // 3.函数传递参数（按值访问）
 
         // typeof 基本类型
         // instanceof 引用类型 -> true，基本类型 -> false
+        // new 出来的变量，用 instanceof
 
         // 1.动态属性    引用类型可以添加新的属性，基本类型不可以
         var obj = new Object();
@@ -33,19 +37,20 @@
         var a1 = 'test';
         var a2 = a1;
         a1 = 'hahah';
-        document.write(a1 + '<br />')
-        document.write(a2 + '<br />')
+        document.write(a1 + '<br />') //hahah
+        document.write(a2 + '<br />') //test
 
         var obj2 = new Object();
         var obj3 = obj2;
         obj3.name = "nishihsi"
-        document.write(obj2.name + '<br />')
-        document.write(obj3.name + '<br />')
+        document.write(obj2.name + '<br />') //nishihsi
+        document.write(obj3.name + '<br />') //nishihsi
 
 
         // 3.函数传递参数
-        // 不管是 基本类型 还是 引用类型 的参数，都按值传递
-        function box(num = count) {
+        // 不管是 基本类型 还是 引用类型 的参数，都 **按值传递**
+        // 复制一份参数传递进去，原变量不变
+        function box(num = count) {--0-
             return num += 10;
 
         }
