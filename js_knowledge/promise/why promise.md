@@ -1,4 +1,5 @@
-#why promise
+# why promise
+
 故事是在这样的：小铁去某厂面试被问到：promise 的出现是为了解决那些问题？他胸有成竹脱口而出：promise 的出现是为了提高代码的可读性，用同步的方式来写异步。然而面试官对这个回答并不满意，说：这只是一方面，并没有答到点子上。事后小铁发现自己对 promise 的理解还只是停留在表面，所以有了下面这篇 promise 知识点的总结。
 
 小铁觉得深刻理解一个概念，大体可以从一下三个问题出发：
@@ -143,6 +144,7 @@ p.catch(onRejected)
 **catch 和 onRejected 的区别**
 
 ```javascript
+//A
 new Promise(function(resolve,reject){
   1?resolve():reject();  
 }).then(function(){
@@ -151,6 +153,7 @@ new Promise(function(resolve,reject){
     console.log('reject');
 });
 
+//B
 new Promise(function(resolve,reject){
   1?resolve():reject();  
 }).then(function(){
@@ -159,6 +162,7 @@ new Promise(function(resolve,reject){
     console.log('reject');
 });
 
+//C
 new Promise(function(resolve,reject){
   1?resolve():reject();  
 }).then(function(){
@@ -166,6 +170,65 @@ new Promise(function(resolve,reject){
 }).then(null,function(err){
     console.log('reject')
 })
+```
+
+B 和 C 完全一样，A 和 B 有细微的区别，当第一个 onFulfilled 内抛出异常时，A 的 onRejected 并不会被执行（二者不能同时执行），而 B 的 catch 回调会被执行。
+
+## 怎么使用 promise
+
+现在我们来看看用 promise 怎么解决上述三个问题。
+
+第一个问题，回调函数内部无法使用回调栈（无法使用关键字 throw 和 return）
+
+```javascript
+function getUser(name){
+  var spl = 'SELECT * FROM users WHERE name=?';
+  var user = query(spl,name);
+  if(!user)
+    throw new Error('no user');
+  return user;
+}
+
+try{
+    getUser('mjackson');
+}catch(e){
+    console.log(e)
+}
+
+//callback
+function getUser(name,callback){
+  var spl = 'SELECT * FROM users WHERE name=?';
+  query(spl,name,function(error,user){
+    if(error)
+      callback(error);
+    else if(!user)
+      callback(new Error('no user'));
+    else
+      callback(null,user);
+  });
+};
+
+getUser('mjackson',(error,user){
+  if(error)
+	return console.error(error);
+  console.log(user);	
+});
+
+//promise
+function getUser(name){
+  var spl = 'SELECT * FROM users WHERE name=?';
+  var executor = function(resolve,reject){
+    query(spl,name,(error,user){
+      error?reject(error):resolve(user);      
+    });
+  }
+}
+
+getUser('mjackson').then(function(user){
+  if(!user)
+    throw new Error('no user');
+  return Promise.resolve(user);
+}).then(console.log,console.error);
 ```
 
 
