@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+		#demo {
+			border: 2px solid black;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="demo" width="300" height="300"></canvas>
+	<script>
+		var drawing = document.getElementById('demo');
+
+		var context = drawing.getContext('2d');
+
+		context.beginPath();
+		context.font = "blod 16px";
+		// context.textAlign="center";
+		// context.textBaseline="middle";
+		context.fillText("12", 95, 20);
+
+		context.arc(100, 100, 100, 0, 2 * Math.PI, true);
+		context.moveTo(195, 100);
+		context.arc(100, 100, 95, 0, 2 * Math.PI, true);
+
+		context.moveTo(100, 100);
+		context.lineTo(100, 25);
+
+		context.moveTo(100, 100);
+		context.lineTo(25, 100)
+			// context.arc(100,100,50,0,1*Math.PI);
+			// context.fillStyle = "red";
+		context.stroke();
+	</script>
+</body>
+
+</html>

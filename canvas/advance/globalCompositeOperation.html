@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style media="screen">
+        #buttons {
+            width: 1200px;
+            margin: 10px auto;
+            clear: both;
+        }
+
+        #buttons a {
+            font-size: 18px;
+            display: block;
+            float: left;
+            margin-right: 14px;
+        }
+
+        #canvas {
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="buttons">
+        <a href="#">source-over</a>
+        <a href="#">source-atop</a>
+        <a href="#">source-in</a>
+        <a href="#">source-out</a>
+        <a href="#">destination-over</a>
+        <a href="#">destination-atop</a>
+        <a href="#">destination-in</a>
+        <a href="#">destination-out</a>
+        <a href="#">lighter</a>
+        <a href="#">copy</a>
+        <a href="#">xor</a>
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            draw('source-over');
+
+            var buttons = document.getElementById('buttons').getElementByTagName('a');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function() {
+                    draw(this.text);
+                    return false;
+                }
+            }
+        }
+
+        function draw(compositeStyle) {
+            var canvas = document.getElementById('canvas');
+            canvas.width = 1200;
+            canvas.height = 800;
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            //draw text
+            ctx.font = "bold 40px Arial";
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#058';
+            ctx.fillText('globalCompositeOperation = ' + compositeStyle, canvas.width / 2, 60);
+
+            //draw rect
+            ctx.fillStyle = '#00f';
+            ctx.fillRect(300, 150, 500, 500);
+
+            //draw triangle
+            ctx.globalCompositeOperation = compositeStyle;
+            ctx.fillStyle = '#f00';
+            ctx.beginPath();
+            ctx.moveTo(700, 250);
+            ctx.lineTo(1000, 750);
+            ctx.lineTo(400, 750);
+            ctx.closePath();
+            ctx.fill();
+        }
+    </script>
+</body>
+
+</html>

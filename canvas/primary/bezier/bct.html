@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+        #demo {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="demo" width="300" height="300"></canvas>
+    <script>
+        var drawing = document.getElementById('demo');
+        var context = drawing.getContext('2d');
+        context.beginPath();
+        context.moveTo(20, 20);
+        context.bezierCurveTo(20, 100, 200, 100, 200, 20);
+        context.stroke();
+    </script>
+</body>
+
+</html>

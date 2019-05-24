@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+        #demo {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="demo" width="500" height="300"></canvas>
+    <script>
+        var drawing = document.getElementById('demo');
+        var context = drawing.getContext('2d');
+
+        var img = new Image();
+        img.src = 'head.jpeg';
+        setTimeout(function() {
+            context.drawImage(img, 0, 0);
+            context.drawImage(img, 0, 0, 150, 150);
+            context.drawImage(img, 120, 40, 80, 80, 10, 10, 80, 80);
+        }, 1)
+    </script>
+</body>
+
+</html>
