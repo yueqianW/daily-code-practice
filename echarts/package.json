@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "echarts": "^4.2.1"
+    "echarts": "^4.2.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "webpack": "^4.32.2"
   }
 }
