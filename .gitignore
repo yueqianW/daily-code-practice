@@ -1,0 +1,25 @@
+# react-demo
+# dependencies
+react-demo/dist/
+react-demo/node_modules
+
+# production
+react-demo/build
+
+
+# react-init
+# dependencies
+react-init/dist/
+react-init/node_modules
+
+# production
+react-init/build
+
+
+# webpack_react
+# dependencies
+webpack_react/dist/
+webpack_react/node_modules
+
+# production
+webpack_react/build
