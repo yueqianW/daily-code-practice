@@ -1,36 +1,371 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="../jquery-3.1.1.min.js"></script>
+    <style>
+        .border1 {
+            width: 176px;
+            height: 56px;
+            background: rgba(143, 87, 62, 0.1);
+            border: 1px solid rgba(255, 193, 45, 1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 0 0 8px 12px;
+        }
+
+        .div1 {
+            display: flex;
+            justify-content: center;
+            height: 36px;
+            line-height: 18px;
+            align-items: center;
+        }
+
+        .div2 {
+            height: 18px;
+            line-height: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .title1 {
+            font-size: 16px;
+            color: rgba(255, 193, 45, 1);
+            padding: 0 7px;
+            text-align: center;
+        }
+
+        .state1 {
+            padding: 0 0 0 5px;
+            font-size: 12px;
+            color: rgb(254, 254, 254);
+        }
+
+        .time1 {
+            padding: 0 8px;
+            font-size: 16px;
+            color: rgba(255, 193, 45, 1);
+
+        }
+
+        .circle1,
+        .circle2 {
+            width: 10px;
+            height: 10px;
+            border-radius: 25px;
+            left: 200px;
+            top: 100px;
+            background-color: #ccc;
+        }
+
+        #border0 {
+            display: flex;
+            width: 1160px;
+            flex-wrap: wrap;
+            border: 1px solid red;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- <h1>Snapshots</h1> -->
-    <ul>
-        <li>
-            <a href="10.png" title="a firework" onclick="showPic(this);">firework</a>
-        </li>
-        <li>
-            <a href="11.png" title="a firework" onclick="showPic(this);return false;">red</a>
-        </li>
-        <li>
-            <a href="12.png" title="a firework" onclick="showPic(this);return false;">colgroup</a>
-        </li>
-    </ul>
-    <img src="#" id="placeholder" alt="">
+    <div id="border0"></div>
+    <!--<div class="border1">-->
+    <!--    <div class="div1">-->
+    <!--        <span class="title1">涨了财付通</span>-->
+    <!--    </div>-->
+    <!--    <div class="div2">-->
+    <!--        <div style="display: flex;align-items: center;">-->
+    <!--            <div class="circle1"></div>-->
+    <!--            <div class="state1">人工</div>-->
+    <!--        </div>-->
+    <!--        <div class="time1">18:00:00</div>-->
+    <!--        <div style="display: flex;align-items: center;">-->
+    <!--            <div class="circle2"></div>-->
+    <!--            <div class="state1">自动</div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
+
     <script>
-        function showPic(whichPic) {
-            var source = whichPic.getAttribute('href');
-            var placeholder = document.getElementById('placeholder');
-            placeholder.setAttribute('src', source);
+        let html = "";
+        let data = [{
+            "name": "涨了财付通涨了财付通涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 1,
+            "auto": 2
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1
+        }, {
+            "name": "涨了财付通",
+            "time": "18:00:00",
+            "people": 2,
+            "auto": 1
+        }, {
+            "name": "涨了财付通111",
+            "time": "18:00:00",
+            "people": 0,
+            "auto": 1,
+            "isAuto": false
+        }];
+
+        function setColor(class1, data) {
+            if (data == 0) {
+                return "#ccc"
+            } else if (data == 1) {
+                return "#3fb7ba"
+            } else if (data == 2) {
+                return "red"
+            }
         }
 
-        window.onload = function() {
-            var body_element = document.getElementsByTagName('body')[0];
-            alert(body_element.nodeType);
+        function setView(data) {
+            if (data == false) {
+                return "hidden"
+            }
         }
+
+        for (let i = 0; i < data.length; i++) {
+            html += `<div>
+            <div class="border1">
+                <div class="div1">
+                    <span class="title1">${data[i].name}</span>
+                </div>
+                <div class="div2">
+                    <div style="display: flex;align-items: center;">
+                        <div class="circle1" style="background-color: ${setColor("circle1", data[i].people)}"></div>
+                        <div class="state1">人工</div>
+                    </div>
+                    <div class="time1">${data[i].time}</div>
+                    <div style="display: flex;align-items: center;visibility: ${setView(data[i].isAuto)}">
+                        <div class="circle2" style="background-color: ${setColor("circle2", data[i].auto)}"></div>
+                        <div class="state1">自动</div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        }
+        document.getElementById("border0").innerHTML = html;
     </script>
 </body>
 

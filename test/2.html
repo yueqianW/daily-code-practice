@@ -1,45 +1,159 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+    <script src="../jquery-3.1.1.min.js"></script>
+    <style>
+        .border1 {
+            width: 176px;
+            height: 56px;
+            background: rgba(143, 87, 62, 0.1);
+            border: 1px solid rgba(255, 193, 45, 1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 0 0 8px 12px;
+        }
+
+        .div1 {
+            display: flex;
+            justify-content: center;
+            height: 36px;
+            line-height: 18px;
+            align-items: center;
+        }
+
+        .div2 {
+            height: 18px;
+            line-height: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .title1 {
+            font-size: 16px;
+            color: rgba(255, 193, 45, 1);
+            padding: 0 7px;
+            text-align: center;
+        }
+
+        .state1 {
+            padding: 0 0 0 5px;
+            font-size: 12px;
+            color: rgb(254, 254, 254);
+        }
+
+        .time1 {
+            padding: 0 8px;
+            font-size: 16px;
+            color: rgba(255, 193, 45, 1);
+
+        }
+
+        .circle1, .circle2 {
+            width: 10px;
+            height: 10px;
+            border-radius: 25px;
+            left: 200px;
+            top: 100px;
+            background-color: #ccc;
+        }
+
+        #border0 {
+            display: flex;
+            width: 900px;
+            flex-wrap: wrap;
+            border: 1px solid red;
+        }
+    </style>
 </head>
-
 <body>
-    <div id="app">
-        <div v-for="topic in topicOption">
-            <input type="radio" :value="topic.data" v-model="picked" >
-            <label>{{topic.data}}</label>
-        </div>
-        <span  @click="getType">Picked: {{ picked }}</span>
-    </div>
-    <script>
-    let topicOption = [];
+<div id="border0"></div>
+<!--<div class="border1">-->
+<!--    <div class="div1">-->
+<!--        <span class="title1">涨了财付通</span>-->
+<!--    </div>-->
+<!--    <div class="div2">-->
+<!--        <div style="display: flex;align-items: center;">-->
+<!--            <div class="circle1"></div>-->
+<!--            <div class="state1">人工</div>-->
+<!--        </div>-->
+<!--        <div class="time1">18:00:00</div>-->
+<!--        <div style="display: flex;align-items: center;">-->
+<!--            <div class="circle2"></div>-->
+<!--            <div class="state1">自动</div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-    topicOption = [{
-        data: "A"
+<script>
+    let html = "";
+    let data = [{
+        "name": "涨了财付通涨了财付通涨了财付通",
+        "time": "18:00:00",
+        "people": 0,
+        "auto": 1
     }, {
-        data: "B"
+        "name": "涨了财付通111",
+        "time": "18:00:00",
+        "people": 0,
+        "auto": 1
     }, {
-        data: "C"
+        "name": "涨了财付通",
+        "time": "18:00:00",
+        "people": 2,
+        "auto": 1
     }, {
-        data: "D"
+        "name": "涨了财付通111",
+        "time": "18:00:00",
+        "people": 0,
+        "auto": 1
     }];
 
-    new Vue({
-        el: "#app",
-        data: {
-            picked: []
-        },
-        methods: {
-            getType() {
-                console.log('1111111', typeof picked)
-            }
+    function setColor(class1, data) {
+        if (data == 0) {
+            return "#ccc"
+        } else if (data == 1) {
+            return "#3fb7ba"
+        } else if (data == 2) {
+            return "red"
         }
-    })
-    </script>
-</body>
+    }
 
+    function setView(data) {
+        if (data == false) {
+            return "hidden"
+        } else {
+            return "visible"
+        }
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        html += `<div>
+            <div class="border1">
+                <div class="div1">
+                    <span class="title1">${data[i].name}</span>
+                </div>
+                <div class="div2">
+                    <div style="display: flex;align-items: center;">
+                        <div class="circle1" style="background-color: ${setColor("circle1", data[i].people)}"></div>
+                        <div class="state1">人工</div>
+                    </div>
+                    <div class="time1">${data[i].time}</div>
+                    <div style="display: flex;align-items: center;visibility: ${setView(data[i].isAuto)}">
+                        <div class="circle2" style="background-color: ${setColor("circle2", data[i].auto)}"></div>
+                        <div class="state1">自动</div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+    }
+    document.getElementById("border0").innerHTML = html;
+</script>
+</body>
 </html>

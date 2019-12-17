@@ -14,5 +14,3 @@ arr[0] = obj1
 let a = 1,b = 2,c=arr[1];
 
 let d = a + c || a + b
-
-console.log('-------',d,c)
