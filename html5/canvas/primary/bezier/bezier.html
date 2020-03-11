@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style media="screen">
+        #canvas {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="300"></canvas>
+    <script type="text/javascript">
+        var drawing = document.getElementById('canvas');
+        var context = drawing.getContext('2d');
+
+        // context.quadraticCurveTo(100, 100, 200, 200);
+        // context.stroke();
+
+        // context.moveTo(50, 50)
+        context.bezierCurveTo(150, 50, 150, 200, 200, 200);
+        context.stroke();
+    </script>
+</body>
+
+</html>

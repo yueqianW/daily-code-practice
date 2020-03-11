@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+        #demo {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="demo" width="400" height="300"></canvas>
+    <script>
+        var drawing = document.getElementById('demo');
+        var context = drawing.getContext('2d');
+        drawGreen(context);
+        drawSky(context);
+
+        function drawSky(cxt) {
+            cxt.save();
+            cxt.beginPath();
+            cxt.moveTo(0, 210);
+            cxt.bezierCurveTo(125, 150, 175, 275, 400, 200);
+            cxt.lineTo(400, 0);
+            cxt.lineTo(0, 0);
+            cxt.closePath();
+
+            var lineStyle = cxt.createRadialGradient(200, 0, 25, 200, 0, 100);
+            lineStyle.addColorStop(0, "#42a9aa");
+            lineStyle.addColorStop(1, "#2491aa");
+            cxt.fillStyle = lineStyle;
+
+            cxt.fill();
+            cxt.restore();
+        }
+
+        function drawGreen(cxt) {
+            cxt.save();
+            cxt.beginPath();
+            cxt.moveTo(0, 210);
+            cxt.bezierCurveTo(125, 150, 175, 275, 400, 200);
+            cxt.lineTo(400, 300);
+            cxt.lineTo(0, 300);
+            cxt.closePath();
+            var lineStyle = context.createLinearGradient(0, 300, 300, 0);
+            lineStyle.addColorStop(0, '#00aa58');
+            lineStyle.addColorStop(1, '#04aa00');
+            cxt.fillStyle = lineStyle;
+            cxt.fill();
+            cxt.restore();
+        }
+    </script>
+</body>
+
+</html>
