@@ -8,6 +8,7 @@
         <script>
             // 1、var let const
             // var 函数作用域，可以变量提升，可以重复定义
+            console.log(price)  // undefined
             var price = 100;
             var count = 10;
             if (count > 5) {
@@ -19,7 +20,7 @@
 
             // 2、let const 块级作用域 {}，不能变量提升，不能重复声明
             // const 不能更改数据，const 定义的基本类型不可更改，引用类型可以更改
-
+            console.log(count1)  // referenceError，临时性死区
             let count1 = 10;
             if (count1 > 5) {
                 let count1 = 5;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const obj = {
+                name: "jelly",
+                date: "2019-01-01",
+                todos: [
+                    { name: "home", done: false },
+                    { name: "school", done: true },
+                    { name: "lunch", done: false }
+                ]
+            };
+
+            let temp = `
+                <div>${obj.name}</div>
+                <ul>
+                    ${obj.todos
+                        .map(
+                            todo =>
+                                `<li>${todo.name}  ${
+                                    todo.done ? "🐶" : "❌"
+                                }</li>`
+                        )
+                        .join("")}
+                </ul>
+                <div>${obj.date}</div>`;
+
+            document.body.innerHTML = temp;
+        </script>
+    </body>
+</html>
