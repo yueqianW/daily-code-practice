@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const obj = {
+                name: "666",
+                age: 25,
+                family: {
+                    dad: "111",
+                    mom: "222"
+                }
+            };
+
+            let { dad, mom, sister = "no sister" } = obj.family;
+            console.log(dad, mom, sister);
+        </script>
+    </body>
+</html>

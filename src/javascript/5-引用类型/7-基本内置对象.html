@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1.Global 对象（全局调用 属性、方法）
+        // 不能被调用 Global.name 是不能用的
+
+        // 2.Math 对象
+        //
+
+        //不能输出 undefined
+        // document.write(Global + '<br />');
+
+
+        //1. Global 对象
+        // 1-1 Global内置方法
+        var code = "//lee李";
+        //只对中文编码 encodeURI --> 编码
+        document.write(encodeURI(code) + '<br />');
+
+        //decodeURIComponent --> 解码
+        document.write(decodeURI(code) + '<br />');
+
+        //完全编码 encodeURIComponent 编码  de 解码
+        document.write(encodeURIComponent(code) + '<br />');
+        document.write(decodeURIComponent(code) + '<br />');
+
+
+        // 1-2 eval 字符串解析器
+        eval('var box = 100');
+        document.write(box + '<br />');
+
+
+
+        // 2.Math 对象
+        document.write(Math.PI + '<br />');
+
+        document.write(Math.min(10, 2, 3, 0) + '<br />');
+        document.write(Math.max(10, 2, 30) + '<br />');
+
+
+        // Math.ceil() //向上舍
+        // Math.floor() //向下舍
+        // Math.round() //四舍五入
+
+
+        // Math.random() //随机数（0，1）
+        var ran = Math.random();
+        document.write(ran + '<br />');
+    </script>
+</body>
+
+</html>

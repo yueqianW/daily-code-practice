@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // let obj = {};
+            // let arr = {};
+            // console.log(
+            //     Object.getPrototypeOf(obj) == Object.getPrototypeOf(arr)
+            // );
+
+            // function User() {}
+            // function user() {}
+            // User.__proto__.view = function() {
+            //     console.log("111");
+            // };
+
+            // const hd = {};
+            // const hd1 = [];
+            // function test() {}
+
+            // console.dir(hd1);
+            // console.dir(hd1.__proto__.__proto__ == Object.prototype);
+            // console.dir(Array.__proto__.__proto__ == Object.prototype);
+            // console.dir(Array.prototype.__proto__ == Object.prototype);
+            // console.dir(hd1.__proto__ == Array.prototype);
+            // console.dir(Object.__proto__.__proto__.__proto__);
+            // hd.view();
+
+            // 函数有 prototype 和 __proto__
+            // test.prototype.__proto__ == Object.prototype
+            // test.__proto__.__proto__ == Object.prototype
+
+            // 实例对象只有 __proto__
+            // hd1.__proto__.__proto__ == Object.prototype
+
+            // arr.__proto__ == Array.prototype
+            // Array.__proto__.__proto__ == Object.prototype
+
+            // let hh = new Object();
+            // Object.prototype.view = function() {
+            //     console.log("222");
+            // };
+
+            // console.dir(test.prototype.__proto__ == Object.prototype);
+            // console.dir(test.__proto__.__proto__ == Object.prototype);
+            // console.dir(Object.prototype.constructor);
+
+            // console.dir(test);
+
+            function User(name) {
+                this.name = name;
+            }
+
+            User.prototype = {
+                constructor: User,
+                show() {
+                    console.log(this.name);
+                }
+            };
+
+            let hd = new User("111");
+            console.log(hd);
+
+            function createByObject(obj, ...args) {
+                const constructor = Object.getPrototypeOf(obj).constructor;
+                return new constructor(...args);
+            }
+            let hd2 = createByObject(hd, "222");
+            console.log(hd2);
+            hd2.show()
+        </script>
+    </body>
+</html>

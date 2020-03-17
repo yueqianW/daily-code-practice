@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        // 每个函数 是 Function 的实例（对象）（一切皆对象）
+        // ->函数是 实例，都与其他引用类型一样具有 属性和方法
+        // ->函数是 对象，函数名 是指向函数对象的 指针（函数名是指针）
+
+        // 1. 函数初始化
+        // 2. 函数传递
+        // 3. arguments.callee  指代函数自身
+        // 4. apply  call
+
+
+        // 1.函数初始化（声明）
+        // 1.1 普通函数初始化函数
+        function oneFun(n1, n2) {
+            document.write(n1 + n2 + '<br />');
+        }
+        oneFun(2, 3);
+
+        // 1.2 使用变量初始化函数（加分号）
+        var oneFun2 = function(num1, num2) {
+            document.write(num1 - num2 + '<br />');
+        };
+        oneFun2(5, 8);
+
+        // 1.3 num ->num2 是指针的传递，指向同一个函数（引用类型）
+        // sum = null，是让 sum指针 与函数断绝关系，函数仍然存在，由 num2 指向
+        var oneFun3 = oneFun;
+        oneFun = null;
+        oneFun3(3, 3);
+
+
+        // 2.函数传递
+        // 2.1 sum 函数的参数 add(15),传递的不是 函数本身，而是函数的返回值
+        function twoFun(add, num2) {
+            document.write(add + num2 + '<br />');
+        }
+
+        function add(num) {
+            return num + 10;
+        }
+        twoFun(add(15), 10);
+
+
+        // 2.2 传递 add 函数本身，而不是返回值
+        function sum3(add, index) {
+            document.write(add(index) + '<br />');
+        }
+
+        function add3(num) {
+            return num + 10;
+        }
+        sum3(add3, 15);
+
+
+
+        // 3. arguments.callee
+        function box(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * box(num - 1); // 递归、阶乘
+            }
+        }
+        document.write(box(6) + '<br />');
+
+        function box2(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                // arguments.callee 动态调用自身，实现递归
+                return num * arguments.callee(num - 1);
+            }
+        }
+        document.write(box2(5) + '<br />');
+
+
+
+        // 4. apply  call  (apply 可以使用 arguments，call 不可以)
+        // 4.1 apply
+        function add2(num1, num2) {
+            return num1 * num2;
+        }
+
+        function plus(num1, num2) {
+            return add2.apply(this, arguments);
+        }
+        document.write(plus(2, 4) + '<br />');
+
+
+        // 4.2 call 绑定 arr 的 this，避免数据传递
+        var arr = {
+            color: 'red'
+        }
+
+        function are() {
+            document.write(this.color + '<br />');
+        }
+        are.call(arr)
+
+
+
+        // test 是全局变量，就是 window 的属性，此时 this 指代 window
+        var test = '666';
+        document.write(window.test + '<br />');
+        document.write(this.test + '<br />');
+
+        // window 是对象，最大的对象
+        document.write(window + '<br />');
+        document.write(typeof this + '<br />');
+    </script>
+</body>
+
+</html>

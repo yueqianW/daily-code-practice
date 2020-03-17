@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    /**
+     * 生成随机数组
+     * @type {Number}
+     */
+    var count = 10000;
+    var origin = new Array;
+    for (var i = 0; i < count; i++) {
+        origin[i] = i + 1;
+    }
+
+    function random() {
+        return Math.random() > 0.5 ? -1 : 1;
+    }
+    var arr = origin.sort(random);
+    /**
+     * 插入排序
+     * @type {Date}
+     */
+    console.time('排序耗时')
+
+    function swap(myArray, firstIndex, secondIndex) {
+        var temp = myArray[firstIndex];
+        myArray[firstIndex] = myArray[secondIndex];
+        myArray[secondIndex] = temp;
+    }
+
+    function partition(myArray, left, right) {
+
+        var pivot = myArray[Math.floor((right + left) / 2)],
+            i = left,
+            j = right;
+
+
+        while (i <= j) {
+
+            while (myArray[i] < pivot) {
+                i++;
+            }
+
+            while (myArray[j] > pivot) {
+                j--;
+            }
+
+            if (i <= j) {
+                swap(myArray, i, j);
+                i++;
+                j--;
+            }
+        }
+
+        return i;
+    }
+
+    function quickSort(myArray, left, right) {
+
+        if (myArray.length < 2) return myArray;
+
+        left = (typeof left !== "number" ? 0 : left);
+
+        right = (typeof right !== "number" ? myArray.length - 1 : right);
+
+        var index = partition(myArray, left, right);
+
+        if (left < index - 1) {
+            quickSort(myArray, left, index - 1);
+        }
+
+        if (index < right) {
+            quickSort(myArray, index, right);
+        }
+        return myArray;
+    }
+        console.timeEnd('排序耗时')
+
+    document.write(quickSort(arr));
+    </script>
+</body>
+
+</html>

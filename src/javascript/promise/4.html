@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    function sleep(ms) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(() => {
+                resolve('ok')
+            }, ms)
+        })
+    }
+
+    async function start() {
+        console.log('---start')
+        let result = await sleep(3000);
+        console.log('---', result);
+    }
+
+    start();
+
+    function test() {
+    	console.log('---')
+    }
+
+    function test2() {
+       	setTimeout(() => {
+            return 'okkkkkk';
+        }, ms)
+    }
+
+    </script>
+</body>
+
+</html>

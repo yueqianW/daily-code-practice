@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1、显示返回
+            const number = [5, 8, 10, 2, 6, 9];
+            const double = number.map(function(num, index) {
+                return num * 2;
+            });
+            const double2 = number.map((num, index) => {
+                return num * 2;
+            });
+            console.log(double, double2);
+
+            // 隐式返回;
+            // const double2 = number.map((num, index) => num * 2);
+
+            // 2、匿名函数
+            const greet = name => {
+                alert(`hello ${name}`);
+            };
+            // greet("jelly");
+
+            const jelly = {
+                name: "jelly",
+                hobbies: ["coding", "sleeping", "reading"],
+                print: function() {
+                    // console.log(this)  jelly 调用 print，this 属于 jelly
+                    this.hobbies.map(function(hobby) {
+                        // function() {} 属于回调函数(独立函数)，this 指向 window
+                        console.log(`${this.name} loves ${hobby}`);
+                    });
+                    this.hobbies.map(hobby => {
+                        // 箭头函数没有自己的 this，this 继承父级作用域
+                        console.log(`${this.name} loves ${hobby}`);
+                    });
+                }
+            };
+            jelly.print();
+
+            // 3、箭头函数不能 new Person，不支持 this 绑定
+            const Person = name => {
+                this.name = name;
+            };
+
+            // 4、箭头函数没有 arguments 对象
+        </script>
+    </body>
+</html>

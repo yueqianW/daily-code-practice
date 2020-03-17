@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style media="screen">
+        #canvas {
+            background-color: hsla(255, 50%, 60%, 0.5);
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script type="text/javascript">
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var isMouseDown = false;
+        var lastLoc = {
+            x: 0,
+            y: 0
+        }
+        canvas.onmousedown = function(e) {
+            isMouseDown = true;
+            lastLoc = {
+                e.clientX,
+                e.clientY
+            };
+        }
+        canvas.onmousemove = function(e) {
+            if (isMouseDown) {
+                ctx.moveTo(lastLoc.x, lastLoc.y);
+                ctx.lineTo(e.clientX, e.clientY);
+                ctx.stroke();
+            }
+        }
+        canvas.onmouseup = function(e) {
+            isMouseDown = false;
+        }
+    </script>
+</body>
+
+</html>

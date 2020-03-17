@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1.promise 的立即执行性
+        // var p = new Promise(function(resolve, reject) {
+        //     console.log('--- 111 create a promise');
+        //     resolve('success');
+        // })
+        //
+        // console.log('--- 111 after new Promise');
+        //
+        // p.then(function(value) {
+        //     console.log('--- 111', value);
+        // })
+
+        /**
+         * promise 对象表示未来某个将要发生的事件，但在 new promise 时，作为 promise 参数传入的函数是会被立即
+         * 执行的，只是其中执行的代码可以是异步代码。有些同学认为，当 promise 对象调用 then 方法时，promise
+         * 接收的函数才会执行，这是错误的。因此，代码中 create a promise 先于 after new promise 输出
+         */
+
+        // 2.promise 的三种状态
+        var p1 = new Promise(function(resolve, reject) {
+            resolve(1);
+        });
+
+        var p2 = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve(2);
+            }, 500);
+        });
+
+        var p3 = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                reject(3);
+            }, 500);
+        });
+
+        console.log('--- 222', p1);
+        console.log('--- 222', p2);
+        console.log('--- 222', p3);
+
+        setTimeout(function() {
+            console.log('--- 222', p2);
+        }, 1000);
+        setTimeout(function() {
+            console.log('--- 222', p3);
+        }, 1000);
+
+        p1.then(function(value) {
+            console.log('--- 222', value);
+        });
+        p2.then(function(value) {
+            console.log('--- 222', value);
+        });
+        p3.catch(function(err) {
+            console.log('--- 222', err);
+        });
+
+        /**
+         * promise 的内部实现是一个状态机。promise 有三种状态：pending，resolved，rejected。
+         * 1.当 promise 刚创建完成时，处于 pending 状态；
+         * 2.当 promise 中的函数参数执行了 resolve 后，promise 由 pending 状态变成 resolved 状态；
+         * 3.如果在 promise 的函数参数中执行的不是 resolve 方法而是 reject 方法，那么 promise 会由
+         * pending 状态变成 rejected 状态
+         *
+         * p2、p3 刚创建完成时，控制台输出的这两个 promise 都处于 pending 状态，但为什么 p1 是 resolved 状态呢？
+         * 这是因为 p1 的函数参数中执行的是一段同步代码，promise 刚创建完成，resolve 方法就已经被调用了，
+         * 因而紧跟着的输出显示 p1 是 resolved 状态。我们通过两个 setTimeout 函数，延迟 1s
+         * 后再次输出 p2、p3 的状态，此时 p2、p3 已经执行完成，状态分别变成 resolved 和 rejected。
+         */
+
+        // 3.promise 状态的不可逆性
+        var p4 = new Promise(function(resolve, reject) {
+            resolve('success1');
+            resolve('success2');
+        });
+        var p5 = new Promise(function(resolve, reject) {
+            resolve('success');
+            reject('failure');
+        });
+
+        p4.then(function(value) {
+            console.log(value);
+        });
+
+        p5.then(function(value) {
+            console.log(value);
+        })
+
+        /**
+         * promise 状态一旦变成 resolved 或 rejected 时，promise 的状态和值就固定下来了，不论你后续怎么
+         * 调用 resolve 或 reject 方法，都不能改变他的状态和值。因此，p4 中 resolve(‘success2’) 并不能
+         * 将 p4 的值更改为 success2，p5 中 reject(’failure‘) 也不能将 p5 的状态由 resolved 改变为 rejected
+         */
+
+        // 4.链式调用
+        var p6 = new Promise(function(resolve, reject) {
+            resolve(1);
+        });
+
+        p6.then(function(value) {
+            console.log(value);
+            return value * 2;
+        }).then(function(value) {
+            console.log(value);
+        }).then(function(value) {
+            console.log(value);
+            return Promise.resolve('resolved')
+        }).then(function(value) {
+            console.log(value);
+            return Promise.reject('reject');
+        }).then(function(value) {
+            console.log('resolve' + value);
+        }, function(err) {
+            console.log('reject:' + err);
+        });
+
+        /**
+         * promise 对象的 then 方法返回一个新的 promise 对象，因此可以通过链式调用 then 方法。
+         * then 方法接受两个函数作为参数，第一个参数是 promise 执行成功时的回调，第二个参数是
+         * promise 执行失败时的回调。两个函数只会有一个被调用，函数的返回值将被用作创建 then
+         * 返回的 promise 对象，这两个参数的返回值可以是以下三种情况中的一种：
+         * 1.return 一个同步的值，或者 undefined（当没有返回一个有效值时，默认返回 undefined）
+         *     then 方法将返回一个 resolved 状态的 promise 对象，promise 对象的值就是这个返回值。
+         * 2.return 另一个 promise，then 方法将根据这个 promise 的状态和值创建一个新的 promise 对象返回
+         * 3.throw 一个同步异常，then 方法将返回一个 rejected 状态的 promise，值是该异常
+         *
+         * 根据以上分析，代码中第一个 then 会返回一个值为 2（1 * 2），状态为 resolved 的 promise 对象
+         * 对于第二个 then 输出的值是 2。第二个 then 中没有返回值，因此将返回默认的 undefined，于是第三个
+         * then 中输出 undefined。第三个 then 和第四个 then 中分别返回一个状态是 resolved 的 promise 和
+         * 一个状态是 rejected 的 promise，依次由第四个 then 中成功的回调函数和第五个 then 中的失败的回调函数处理
+         */
+
+        // 5.promise then() 的回调异步性
+        var p7 = new Promise(function(resolve, reject) {
+            resolve('success 111');
+        });
+
+        p7.then(function(value) {
+            console.log(value);
+        });
+
+        console.log('which one is called first?')
+    </script>
+</body>
+
+</html>
