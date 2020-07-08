@@ -1,20 +1,28 @@
-let arr = [3, 1, 2, 6, 9, 4, 0];
+let arr = [1, 2, 3, 4, 5];
 
-function reBuild(item) {
-  return item > 3;
-}
+let test = arr.filter((item, index, arr) => {
+  return item > 3
+})
 
-console.log(arr.filter((item, index, arr) => {
-  return arr
-}))
+console.log(test)
 
 // 查找相同字符内容
 // let arrs = ['apple', 'banana', 'pineapple'];
 
-// const test = (query) => {
+// const ceshi = (query) => {
 //   return arrs.filter(item =>
-//     item.toLowerCase().indexOf(query.toLowerCase()) > -1
+//     item.indexOf(query) > -1
 //   )
 // }
 
-// console.log(test('le'))
+// console.log(ceshi('le'))
+
+let names = ['apple', 'banaba']
+
+let ceshi = (query) => {
+  return names.filter(item =>
+    item.indexOf(query) > -1
+  )
+}
+
+console.log(ceshi('le'))
