@@ -7,7 +7,6 @@ let result = add(10, 10)
 
 console.log(result, sum)
 
-
 if(sum > 10) {
 
   let test = 5
