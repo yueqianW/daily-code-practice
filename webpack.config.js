@@ -5,11 +5,11 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
-    // entry: './src/index.js',
+    // entry: './src/index.tsx',
     entry: {
-        // app: './src/index.js',
+        // app: './src/index.tsx',
         // print: './src/print.js',
-        app: './src/index.js',
+        app: './src/index.tsx',
         // html: './src/index.html',
     },
     output: {
