@@ -1,16 +1,11 @@
-let p = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        console.log('0000')
-        reject('1111')
-    }, 500)
+const promise = new Promise(function (resolve, reject) {
+  console.log('promise resolved')
+
+  setTimeout(function () {
+    resolve();
+  }, 1000)
 })
 
-p.then((data) => {
-    console.log('---- 22', data)
-    console.log('---- 22', es)
-}, (err) => {
-    console.log('---- err', err)
-
-}).catch(err => {
-    console.log('---- 444')
+promise.then(function(){
+  console.log('11111')
 })
